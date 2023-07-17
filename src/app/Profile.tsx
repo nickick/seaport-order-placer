@@ -1,5 +1,6 @@
 import { useAccount, useConnect, useEnsName } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import { StyledButton } from "./StyledButton";
 
 function Profile() {
   const { address, isConnected } = useAccount();
@@ -9,16 +10,16 @@ function Profile() {
   });
 
   return (
-    <div className="py-2 w-[40rem]">
+    <div className="py-2 w-[60rem]">
       {isConnected ? (
-        <>Connected to {ensName ?? address}</>
+        <>Connected to: {ensName ?? address}</>
       ) : (
-        <button
+        <StyledButton
           className="p-2 border rounded border-white m-2 mx-auto"
           onClick={() => connect()}
         >
           Connect Wallet
-        </button>
+        </StyledButton>
       )}
     </div>
   );
