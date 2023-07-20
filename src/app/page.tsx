@@ -3,8 +3,8 @@ import { createWalletClient, http } from "viem";
 import { goerli } from "viem/chains";
 import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { OrderPlacer } from "./OrderPlacer";
 import { Profile } from "./Profile";
+import { Multicall } from "./Multicall";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [goerli],
@@ -29,13 +29,8 @@ export default function Home() {
     <WagmiConfig config={config}>
       <main className="flex min-h-screen flex-col items-center p-24">
         <Profile />
-        <div className="flex">
-          <OrderPlacer />
-          <div>
-            <pre>
-              {/* TODO: make something nice to parse out a seaport order to make this easier to understand */}
-            </pre>
-          </div>
+        <div className="flex w-full">
+          <Multicall />
         </div>
       </main>
     </WagmiConfig>
