@@ -22,7 +22,7 @@ function Profile() {
       {connectString ? (
         <div className="flex flex-col">
           <div>Connected to: {connectString}</div>
-          <div className="flex">
+          <div className="flex w-full justify-end">
             Network: &nbsp; <NetworkSwitch />
           </div>
         </div>

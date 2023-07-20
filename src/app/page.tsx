@@ -27,8 +27,10 @@ export const walletClient = createWalletClient({
 export default function Home() {
   return (
     <WagmiConfig config={config}>
-      <main className="flex min-h-screen flex-col items-center p-24">
-        <Profile />
+      <main className="flex min-h-screen flex-col items-center p-24 space-y-2">
+        <div className="flex w-full h-16 text-right">
+          <Profile />
+        </div>
         <div className="flex w-full">
           <Multicall />
         </div>
