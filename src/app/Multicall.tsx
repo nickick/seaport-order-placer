@@ -4,13 +4,15 @@ import initialOrder from "./reservoirOrder.json";
 import { erc20ABI, useAccount, usePublicClient, useWalletClient } from "wagmi";
 
 import uniswapRouterAbi from "./ABI/uniswapRouter.json";
-import { parseUnits } from "viem";
+import multicallAbi from "./ABI/multicall.json";
+import { encodeFunctionData, multicall3Abi, parseUnits } from "viem";
 import { polygon } from "viem/chains";
-const UNISWAP_ROUTER_CONTRACT = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45";
 
+const UNISWAP_ROUTER_CONTRACT = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45";
 const POLYGON_MATIC_ADDRESS = "0x0000000000000000000000000000000000001010";
 const POLYGON_WMATIC_ADDRESS = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270";
 const POLYGON_USDC_ADDRESS = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
+const MULTICALL_ADDRESS = "0xcA11bde05977b3631167028862bE2a173976CA11";
 
 function Multicall() {
   const [order, setOrder] = useState(initialOrder);
@@ -88,7 +90,66 @@ function Multicall() {
     await swap();
   };
 
-  const multicall = async () => {};
+  const multicall = async () => {
+    const [wmaticDecimals, usdcDecimals] = await getDecimals();
+    // encode function data for each call first
+
+    // get approval calldata first
+    const approveWMaticCalldata = encodeFunctionData({
+      abi: erc20ABI,
+      functionName: "approve",
+      args: [UNISWAP_ROUTER_CONTRACT, parseUnits("1", wmaticDecimals)],
+    });
+
+    // get swap calldata
+    const swapCalldata = encodeFunctionData({
+      abi: uniswapRouterAbi,
+      functionName: "exactOutputSingle",
+      args: [
+        [
+          POLYGON_WMATIC_ADDRESS,
+          POLYGON_USDC_ADDRESS,
+          3000,
+          address,
+          parseUnits("0.001", usdcDecimals),
+          parseUnits("0.002", wmaticDecimals),
+          0,
+        ],
+      ],
+    });
+
+    // ~fusion dance~
+    const multicallSimulation = await publicClient.simulateContract({
+      account: address ?? "0x0",
+      address: MULTICALL_ADDRESS,
+      abi: multicallAbi,
+      functionName: "aggregate3",
+      args: [
+        // address of contract, bool for allow failures, calldata
+        [
+          [POLYGON_WMATIC_ADDRESS, true, approveWMaticCalldata],
+          [UNISWAP_ROUTER_CONTRACT, true, swapCalldata],
+        ],
+      ],
+    });
+
+    if (multicallSimulation) {
+      await walletClient.data?.writeContract({
+        account: address ?? "0x0",
+        address: MULTICALL_ADDRESS,
+        abi: multicallAbi,
+        functionName: "aggregate3",
+        args: [
+          // address of contract, bool for allow failures, calldata
+          [
+            [POLYGON_WMATIC_ADDRESS, true, approveWMaticCalldata],
+            [UNISWAP_ROUTER_CONTRACT, true, swapCalldata],
+          ],
+        ],
+        chain: polygon,
+      });
+    }
+  };
 
   return (
     <div className="w-full items-start border rounded p-2 space-y-4">
@@ -132,7 +193,7 @@ function Multicall() {
           <div className="border h-12" />
           <StyledButton
             onClick={() => {
-              sequential();
+              multicall();
             }}
             disabled={!address}
           >
