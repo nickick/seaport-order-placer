@@ -1,13 +1,13 @@
 "use client";
 import { createWalletClient, http } from "viem";
-import { goerli } from "viem/chains";
-import { WagmiConfig, configureChains, createConfig } from "wagmi";
+import { goerli, polygon, polygonMumbai } from "viem/chains";
+import { WagmiConfig, configureChains, createConfig, mainnet } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { Profile } from "./Profile";
 import { Multicall } from "./Multicall";
+import { Profile } from "./Profile";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [goerli],
+  [goerli, mainnet, polygon, polygonMumbai],
   [publicProvider()]
 );
 

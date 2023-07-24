@@ -1,0 +1,115 @@
+{
+  "id": "0x014673ef22a0d6d327419e7645c9dcacdc73aa69bd408a944063bdc4410c5e3e",
+  "kind": "seaport-v1.5",
+  "side": "sell",
+  "status": "active",
+  "tokenSetId": "token:0x1ef1235085dc18f7801543a0bf9f525541e56d43:3",
+  "tokenSetSchemaHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "contract": "0x1ef1235085dc18f7801543a0bf9f525541e56d43",
+  "contractKind": "erc1155",
+  "maker": "0x09fddbbaf37b19ca477649aeef6f4bb46b3dfb7b",
+  "taker": "0xdd364d0204c6f6d873c7b895c2d2df733cae1f8f",
+  "price": {
+    "currency": {
+      "contract": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+      "name": "USD Coin (PoS)",
+      "symbol": "USDC",
+      "decimals": 6
+    },
+    "amount": {
+      "raw": "1000000",
+      "decimal": 1,
+      "usd": 1.00005,
+      "native": 1.3429
+    },
+    "netAmount": {
+      "raw": "975000",
+      "decimal": 0.975,
+      "usd": 0.97505,
+      "native": 1.30933
+    }
+  },
+  "validFrom": 1689890692,
+  "validUntil": 1692569092,
+  "quantityFilled": 0,
+  "quantityRemaining": 1,
+  "dynamicPricing": null,
+  "criteria": {
+    "kind": "token",
+    "data": {
+      "token": {
+        "tokenId": "3"
+      }
+    }
+  },
+  "source": {
+    "id": "0x5b3256965e7c3cf26e11fcaf296dfc8807c01073",
+    "domain": "opensea.io",
+    "name": "OpenSea",
+    "icon": "https://raw.githubusercontent.com/reservoirprotocol/indexer/v5/src/models/sources/opensea-logo.svg",
+    "url": "https://opensea.io/assets/matic/0x1ef1235085dc18f7801543a0bf9f525541e56d43/3"
+  },
+  "feeBps": 250,
+  "feeBreakdown": [
+    {
+      "bps": 250,
+      "kind": "marketplace",
+      "recipient": "0x0000a26b00c1f0df003000390027140000faa719"
+    }
+  ],
+  "expiration": 1692569092,
+  "isReservoir": null,
+  "isDynamic": false,
+  "createdAt": "2023-07-20T22:05:15.680Z",
+  "updatedAt": "2023-07-20T22:05:15.680Z",
+  "originatedAt": "2023-07-20T22:05:15.490Z",
+  "rawData": {
+    "kind": "single-token",
+    "salt": "0x360c6ebe00000000000000000000000000000000000000001e078e7e6f67bb63",
+    "zone": "0x0000000000000000000000000000000000000000",
+    "offer": [
+      {
+        "token": "0x1ef1235085dc18f7801543a0bf9f525541e56d43",
+        "itemType": 3,
+        "endAmount": "1",
+        "startAmount": "1",
+        "identifierOrCriteria": "3"
+      }
+    ],
+    "counter": "0",
+    "endTime": 1692569092,
+    "offerer": "0x09fddbbaf37b19ca477649aeef6f4bb46b3dfb7b",
+    "partial": true,
+    "zoneHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "orderType": 1,
+    "startTime": 1689890692,
+    "conduitKey": "0x0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f0000",
+    "consideration": [
+      {
+        "token": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+        "itemType": 1,
+        "endAmount": "975000",
+        "recipient": "0x09fddbbaf37b19ca477649aeef6f4bb46b3dfb7b",
+        "startAmount": "975000",
+        "identifierOrCriteria": "0"
+      },
+      {
+        "token": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+        "itemType": 1,
+        "endAmount": "25000",
+        "recipient": "0x0000a26b00c1f0df003000390027140000faa719",
+        "startAmount": "25000",
+        "identifierOrCriteria": "0"
+      },
+      {
+        "token": "0x1ef1235085dc18f7801543a0bf9f525541e56d43",
+        "itemType": 3,
+        "endAmount": "1",
+        "recipient": "0xdd364d0204c6f6d873c7b895c2d2df733cae1f8f",
+        "startAmount": "1",
+        "identifierOrCriteria": "3"
+      }
+    ]
+  },
+  "isNativeOffChainCancellable": false
+}
